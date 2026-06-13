@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trucker Match - Ultimate App</title>
+    <title>Trucker Match - Ultimate App (S časováním)</title>
     <style>
         :root {
             --primary: #f39c12; 
@@ -72,13 +72,12 @@
         .btn-premium { background: linear-gradient(45deg, #8e44ad, #9b59b6); color: white; border: none; box-shadow: 0 4px 15px rgba(155, 89, 182, 0.4); }
         .btn-locked { background: #333; color: var(--text-muted); border: 1px solid #555; }
         
-        /* Sociální tlačítka */
         .btn-apple { background: #000; border: 1px solid #333; }
         .btn-google { background: #db4437; }
         .btn-fb { background: #4267B2; }
         .btn-whatsapp { background: #25D366; color: #000; }
 
-        .input-dark { width: 100%; padding: 15px; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.6); color: #fff; margin-bottom: 15px; font-size: 16px; }
+        .input-dark { width: 100%; padding: 15px; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.6); color: #fff; margin-bottom: 15px; font-size: 16px; color-scheme: dark; }
         select.input-dark { appearance: none; }
         input[type="range"] { width: 100%; accent-color: var(--primary); margin: 15px 0; }
         
@@ -95,6 +94,7 @@
         .card-title { font-size: 18px; font-weight: bold; color: #fff; }
         .card-badge { background: var(--primary); color: #000; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; }
         .route-box { background: rgba(0,0,0,0.5); padding: 10px; border-radius: 8px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; font-weight: bold; }
+        .time-box { background: rgba(243, 156, 18, 0.1); border-left: 3px solid var(--primary); padding: 8px 10px; margin-bottom: 10px; font-size: 13px; color: var(--text-light); }
         .tag-grid { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
         .tag { background: #222; padding: 5px 10px; border-radius: 4px; font-size: 12px; color: var(--text-muted); border: 1px solid #333; }
         .tag.alert { border-color: var(--primary); color: var(--primary); }
@@ -169,17 +169,26 @@
 
             <div id="tab-driver-profile" class="tab-content" style="padding: 20px;">
                 <div class="profile-header">
-                    <div class="avatar">Ř</div>
+                    <div class="avatar">JK</div>
                     <div>
-                        <div style="font-size: 20px; font-weight: bold;">Jan Novák</div>
+                        <div style="font-size: 20px; font-weight: bold;">Jan Koukal</div>
                         <div style="color: #f1c40f; font-size: 14px; margin: 4px 0;">⭐⭐⭐⭐⭐ 4.9 (Hodnocení)</div>
                         <div style="color: var(--success); font-size: 13px;">✅ +420 777 123 456</div>
                     </div>
                 </div>
 
                 <div class="form-section">
+                    <h3>Časová dostupnost</h3>
+                    <label style="color: var(--text-muted); font-size: 14px; display: block; margin-bottom: 5px;">Jsem volný OD (Datum a čas):</label>
+                    <input type="datetime-local" class="input-dark">
+                    
+                    <label style="color: var(--text-muted); font-size: 14px; display: block; margin-bottom: 5px; margin-top: 10px;">Jsem volný DO (Datum a čas):</label>
+                    <input type="datetime-local" class="input-dark">
+                </div>
+
+                <div class="form-section">
                     <h3>Lokace a dojezd</h3>
-                    <input type="text" class="input-dark" placeholder="Místo bydliště (např. Olomouc)">
+                    <input type="text" class="input-dark" value="Olomouc" placeholder="Místo bydliště">
                     <label style="color: var(--text-muted);">Max. ochota dojíždět k autu: <span id="radius-val" style="color: #fff; font-weight: bold;">50 km</span></label>
                     <input type="range" min="0" max="200" value="50" oninput="document.getElementById('radius-val').innerText = this.value + ' km'">
                     <input type="number" class="input-dark" placeholder="Moje minimální taxa (Kč / den)">
@@ -194,7 +203,7 @@
                         <label class="check-item"><input type="checkbox"> ADR (Cisterny)</label>
                         <label class="check-item"><input type="checkbox" checked> VZV (Ještěrka)</label>
                         <label class="check-item"><input type="checkbox"> Vazačský průkaz</label>
-                        <label class="check-item"><input type="checkbox" checked> Psychotesty platné</label>
+                        <label class="check-item"><input type="checkbox" checked> Psychotesty</label>
                         <label class="check-item"><input type="checkbox"> Vlastní pojistka</label>
                     </div>
                 </div>
@@ -214,7 +223,6 @@
                 <button class="btn btn-outline" style="border-color: var(--danger); color: var(--danger); margin-top: 30px;" onclick="simulateTrialExpiry()">🛠️ [TEST] Simulovat vypršení 14 dnů</button>
             </div>
 
-
             <div id="tab-company-add" class="tab-content" style="padding: 20px;">
                 <div class="form-section">
                     <h3>Vytvořit poptávku po řidiči</h3>
@@ -223,7 +231,13 @@
                     <button class="btn" style="background: #333; border: 1px dashed #aaa; margin-bottom: 20px;" onclick="document.getElementById('photo-upload').click()">📸 Nahrát fotku soupravy</button>
                     <div id="photo-name" style="color: var(--success); font-size: 14px; text-align: center; margin-top: -10px; margin-bottom: 20px; display: none;">Fotka nahrána ✓</div>
 
-                    <div class="route-box" style="margin-top: 15px;">
+                    <label style="color: var(--text-muted); font-size: 14px; display: block; margin-bottom: 5px;">Požadovaný nástup (Datum a čas):</label>
+                    <input type="datetime-local" class="input-dark">
+                    
+                    <label style="color: var(--text-muted); font-size: 14px; display: block; margin-bottom: 5px; margin-top: 10px;">Očekávaný konec (Datum a čas):</label>
+                    <input type="datetime-local" class="input-dark">
+
+                    <div class="route-box" style="margin-top: 25px;">
                         <span style="color: var(--primary);">🅰️ Odkud:</span>
                         <input type="text" style="background: transparent; border: none; color: white; width: 100%; outline: none;" placeholder="Město / Depo">
                     </div>
@@ -342,18 +356,15 @@
 </div>
 
 <script>
-    // --- HLAVNÍ STAVY APLIKACE ---
-    let isTrialActive = true; // Na začátku má každý 14 dnů zdarma
+    let isTrialActive = true; 
     let isPremium = false; 
     let currentRole = '';
     let historyStack = [];
 
-    // --- NAVIGACE A TLAČÍTKO ZPĚT ---
     function navigate(screenId, isBackAction = false) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById(screenId).classList.add('active');
 
-        // Logika historie (nepřidáváme duplikáty ani Checkout/Paywall do hlavní historie pro čisté Zpět)
         if (!isBackAction) {
             const currentActive = historyStack[historyStack.length - 1];
             if (currentActive !== screenId && screenId !== 'screen-checkout') {
@@ -382,11 +393,8 @@
             banner.style.display = 'none';
         } else {
             header.style.display = 'flex';
-            
-            // Tlačítko Zpět schovat na hlavní stránce App
             backBtn.style.visibility = (screenId === 'screen-app') ? 'hidden' : 'visible';
 
-            // Logika banneru
             if(screenId === 'screen-app' && !isPremium) {
                 banner.style.display = 'block';
                 if(isTrialActive) {
@@ -400,14 +408,12 @@
                 banner.style.display = 'none';
             }
 
-            // Názvy hlaviček
             if (screenId === 'screen-paywall') title.innerText = 'Aktivace účtu';
             else if (screenId === 'screen-checkout') title.innerText = 'Zabezpečená platba';
             else title.innerText = 'Trucker Match';
         }
     }
 
-    // --- SPUŠTĚNÍ APLIKACE ---
     function startApp(role) {
         currentRole = role;
         
@@ -444,16 +450,14 @@
         if(tabId === 'company-add') renderPublishButton();
     }
 
-    // --- FUNKCE PRO VÝVOJÁŘE (Test Paywallu) ---
     function simulateTrialExpiry() {
         isTrialActive = false;
         alert("Zkušební doba právě vypršela. Funkce se zamknou.");
-        navigate('screen-app'); // Překreslí hlavičky a inzeráty
+        navigate('screen-app'); 
         if(currentRole === 'driver') renderJobs();
         if(currentRole === 'company') renderPublishButton();
     }
 
-    // --- NAHRÁVÁNÍ FOTKY (Simulace) ---
     function handlePhotoUpload(input) {
         if(input.files && input.files[0]) {
             const name = input.files[0].name;
@@ -463,18 +467,16 @@
         }
     }
 
-    // --- VYKRESLENÍ INZERÁTŮ (ŘIDIČ) ---
     function renderJobs() {
         const container = document.getElementById('jobs-list');
         const jobs = [
-            { company: 'Agro Trans Morava', from: 'Olomouc', to: 'Vnitro CZ', req: 'Sklápěč, C+E', sleep: 'Každý den doma', price: '3 500 Kč / den', phone: '+420 777 123 456' },
-            { company: 'Euro Frigo', from: 'Praha', to: 'Hamburg (DE)', req: 'Frigo, C+E', sleep: 'Víkendy venku', price: '4 800 Kč / den', phone: '+420 608 987 654' },
-            { company: 'Dřevo Transport', from: 'Šumperk', to: 'Paskov', req: 'Lesovůz, Vazačák', sleep: 'Po-Pá v autě', price: '5 000 Kč / den', phone: '+420 733 444 555' }
+            { company: 'Agro Trans Morava', from: 'Olomouc', to: 'Vnitro CZ', req: 'Sklápěč, C+E', sleep: 'Každý den doma', price: '3 500 Kč / den', phone: '+420 777 123 456', dates: '18.6. 06:00 - 20.6. 18:00' },
+            { company: 'Euro Frigo', from: 'Praha', to: 'Hamburg (DE)', req: 'Frigo, C+E', sleep: 'Víkendy venku', price: '4 800 Kč / den', phone: '+420 608 987 654', dates: '1.7. 10:00 - 15.7. 12:00' },
+            { company: 'Dřevo Transport', from: 'Šumperk', to: 'Paskov', req: 'Lesovůz, Vazačák', sleep: 'Po-Pá v autě', price: '5 000 Kč / den', phone: '+420 733 444 555', dates: 'Dle domluvy (Záskok)' }
         ];
 
         container.innerHTML = '';
         jobs.forEach(job => {
-            // LOGIKA PAYWALLU: Trial = odemčeno. Premium = odemčeno. Vypršelo = zamčeno.
             let hasAccess = isTrialActive || isPremium;
             let phoneButtonHtml = hasAccess 
                 ? `<button class="btn btn-outline" style="margin-top: 15px; border-color: var(--success); color: var(--success);" onclick="alert('Volám: ${job.phone}')">☎️ Zavolat: ${job.phone}</button>`
@@ -485,6 +487,9 @@
                     <div class="card-header">
                         <span class="card-title">${job.company}</span>
                         <span class="card-badge">Hledá Řidiče</span>
+                    </div>
+                    <div class="time-box">
+                        ⏱️ Termín jízdy: <strong>${job.dates}</strong>
                     </div>
                     <div class="route-box">
                         <div><span style="color: var(--primary);">🅰️</span> ${job.from}</div>
@@ -502,7 +507,6 @@
         });
     }
 
-    // --- VYKRESLENÍ TLAČÍTKA (FIRMA) ---
     function renderPublishButton() {
         const container = document.getElementById('publish-btn-container');
         let hasAccess = isTrialActive || isPremium;
@@ -514,14 +518,13 @@
         }
     }
 
-    // --- ZPRACOVÁNÍ PLATBY ---
     function processPayment(btn) {
         btn.innerText = 'Zpracovávám platbu...';
         btn.style.opacity = '0.7';
 
         setTimeout(() => {
             isPremium = true; 
-            isTrialActive = true; // Restart logic
+            isTrialActive = true; 
             
             alert('🎉 Platba proběhla úspěšně! Účet je nyní plně Premium.');
             btn.innerText = 'Potvrdit platbu';
